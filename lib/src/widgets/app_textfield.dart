@@ -13,7 +13,7 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
         keyboardType: TextInputType.number,
-        maxLength: 9,
+        maxLength: 20,
         decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

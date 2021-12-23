@@ -345,7 +345,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 shape: StadiumBorder(),
                                 color: Colors.yellowAccent,
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'edit');
+                                  Navigator.pushNamed(context, '/edit');
                                 },
                                 child: Text(
                                   "Modificar",

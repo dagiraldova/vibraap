@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EditPage extends StatelessWidget {
+  static const String routeName = '/edit';
 
   @override
   Widget build(BuildContext context) {
