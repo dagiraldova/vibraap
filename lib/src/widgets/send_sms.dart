@@ -13,13 +13,21 @@ class SendSms extends StatelessWidget {
         color: Colors.green,
         child: Text("Enviar SMS"),
         onPressed: () async {
-          String phoneNumber = "+573104695891";
+          String phoneNumber = "+573137421964";
+          String phoneNumber2 = "+573117286992";
+          String phoneNumber3 = "+573104695891";
+          String phoneNumber4 = "+573113521384";
+          String phoneNumber5 = "+573148942838";
           String message = "Su pedido se encuentra listo";
 
           await Sendsms.onGetPermission();
 
           if (await Sendsms.hasPermission()) {
             await Sendsms.onSendSMS(phoneNumber, message);
+            await Sendsms.onSendSMS(phoneNumber2, message);
+            await Sendsms.onSendSMS(phoneNumber3, message);
+            await Sendsms.onSendSMS(phoneNumber4, message);
+            await Sendsms.onSendSMS(phoneNumber5, message);
           }
         },
       ),
