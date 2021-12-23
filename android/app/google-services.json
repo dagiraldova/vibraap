@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "149759091292",
+    "project_id": "vibrapp-47e7e",
+    "storage_bucket": "vibrapp-47e7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149759091292:android:5f85947b0fdc5b8df9bc99",
+        "android_client_info": {
+          "package_name": "com.umanizales.vibrapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149759091292-9uisij3t8pk39bmled0ifupbor5sah2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIwFAKpVI69Xp4bmofzg_70tBfxS3bqg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149759091292-9uisij3t8pk39bmled0ifupbor5sah2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
