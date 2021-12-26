@@ -1,8 +1,13 @@
+// ignore_for_file: equal_keys_in_map
+
 import 'package:flutter/material.dart';
+import 'package:flutterchat_app/src/screens/edit_screen.dart';
 import 'package:flutterchat_app/src/screens/login_screen.dart';
+import 'package:flutterchat_app/src/screens/order_history_screen.dart';
 import 'package:flutterchat_app/src/screens/order_screen.dart';
 import 'package:flutterchat_app/src/screens/products_screen.dart';
 import 'package:flutterchat_app/src/screens/registration_screen.dart';
+import 'package:flutterchat_app/src/screens/reset_password_screen.dart';
 import 'package:flutterchat_app/src/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -32,5 +37,10 @@ void main() async {
             RegistrationScreen(),
         OrderScreen.RouteName: (BuildContext context) => OrderScreen(),
         ProductsScreen.RouteName: (BuildContext context) => ProductsScreen(),
+        OrderHistoryScreen.routeName: (BuildContext context) =>
+            OrderHistoryScreen(),
+        EditPage.routeName: (BuildContext context) => EditPage(),
+        ResetPasswordScreen.routeName: (BuildContext context) =>
+            ResetPasswordScreen()
       }));
 }

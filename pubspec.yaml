@@ -29,19 +29,20 @@ environment:
 dependencies:
   cloud_firestore: ^3.1.4
   cupertino_icons: ^1.0.2
-  font_awesome_flutter: ^9.2.0
   editable: ^2.0.0
-  faker_dart: ^0.1.3
+  file_picker: ^4.3.0
   firebase_auth: ^3.3.3
   firebase_core: ^1.10.5
+  firebase_storage: ^10.2.4
   flutter:
     sdk: flutter
-  path_provider: 
+  font_awesome_flutter: ^9.2.0
+  image_picker: ^0.8.4+4
+  open_file: ^3.2.1
+  path_provider: null
   rflutter_alert: ^2.0.4
-  sqflite: ^2.0.1
-  path:
   sendsms: ^1.0.3
-   
+  sqflite: ^2.0.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0

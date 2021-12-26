@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison, use_key_in_widget_constructors, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_null_comparison, prefer_if_null_operators
+
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
@@ -12,13 +13,12 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-        keyboardType: TextInputType.number,
-        maxLength: 9,
+        maxLength: 15,
         decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             hintText: inputText,
-            border: const OutlineInputBorder()),
+            border: const UnderlineInputBorder()),
         onChanged: onChanged,
         obscureText: obscureText == null ? false : obscureText);
   }

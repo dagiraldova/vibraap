@@ -18,7 +18,7 @@ class AppButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         elevation: 5,
         child: SizedBox(
-          height: 70,
+          height: 50,
           width: 250,
           child: TextButton(
               child: Text(
