@@ -9,6 +9,8 @@ import 'package:flutterchat_app/src/widgets/app_navigation_drawer.dart';
 import 'package:flutterchat_app/src/widgets/app_textfield.dart';
 import 'package:flutterchat_app/src/widgets/drop_down.dart';
 import 'package:flutterchat_app/src/widgets/order_table.dart';
+import 'package:flutterchat_app/src/widgets/product_table.dart';
+import 'package:flutterchat_app/src/widgets/send_sms.dart';
 import 'package:flutterchat_app/src/widgets/text_field_order.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -164,7 +166,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Align(
                         alignment: Alignment.bottomRight,
-                        child: OrderTable(),
+                        child: ProductTable(),
                       ),
                       SizedBox(
                         width: 40,
@@ -290,6 +292,7 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Container(
           child: Column(
             children: <Widget>[
+              SendSms(),
               Container(
                 child: FlatButton.icon(
                   icon: Icon(
@@ -360,7 +363,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),

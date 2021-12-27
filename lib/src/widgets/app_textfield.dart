@@ -12,8 +12,8 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-        keyboardType: TextInputType.number,
-        maxLength: 9,
+       // keyboardType: TextInputType.number,
+        maxLength: 15,
         decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

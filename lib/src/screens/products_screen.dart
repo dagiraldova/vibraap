@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterchat_app/src/db/db_provider.dart';
 import 'package:flutterchat_app/src/db/repository.dart';
-import 'package:flutterchat_app/src/services/operation.dart';
+import 'package:flutterchat_app/src/db/operation.dart';
 import 'package:flutterchat_app/src/widgets/app_button.dart';
 import 'package:flutterchat_app/src/widgets/app_navigation_drawer.dart';
 import 'package:flutterchat_app/src/widgets/app_textfield.dart';
@@ -36,17 +36,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
     final _codigoProductoCtrl = TextEditingController();
     final _nombreProdcutoCtrl = TextEditingController();
     final _precioProductoCtrl = TextEditingController();
+    //_productsList
+    //= _loadData()
     _loadData();
-    
   }
 
   _loadData() async {
     var productsList = await Operation().productos();
     print(productsList.length);
-     productsList.addAll(_productsList);
-    // setState(() {
-      
-    // });
+    _productsList.addAll(productsList);
+    return _productsList;
   }
 
   final TextStyle style =
@@ -159,12 +158,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                             precioProducto: int.parse(
                                                 _precioProductoCtrl.text
                                                     .toString()));
-                                        setState(() {});
 
-                                       // ProductTable().createState().agregarProducto(producto);
+                                        setState(() {});
+                                        // ProductTable().createState().agregarProducto(producto);
                                         Operation().saveData(producto);
                                         _productsList.add(producto);
-                                        
                                         
                                       },
                                       shape: StadiumBorder(),
@@ -220,41 +218,58 @@ class _ProductsScreenState extends State<ProductsScreen> {
               //Tabla de productos
               //ProductTable(),
               DataTable(
-      sortColumnIndex: 0,
-      columns: <DataColumn>[
-        DataColumn(
-            label: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/productos');
-          },
-          icon: Icon(Icons.add),
-          color: Colors.black,
-        )),
-        DataColumn(
-            label: Text("Nombre Producto"),
-            tooltip: "Nombre Producto",
-            numeric: true,
-            onSort: (int columnIndex, bool ascending) {}),
-        DataColumn(
-            label: Text("Codigo"),
-            tooltip: "Codigo",
-            numeric: true,
-            onSort: (int columnIndex, bool ascending) {}),
-        DataColumn(
-            label: Text("Valor Ud"),
-            tooltip: "Valor Ud",
-            numeric: true,
-            onSort: (int columnIndex, bool ascending) {}),
-      ],
-      rows: _productsList.map((_productsList) {
-        return DataRow(cells: [
-          DataCell(Text('')),
-          DataCell(Text('${_productsList.nombreProducto.toString()}')),
-          DataCell(Text('${_productsList.codigo.toString()}')),
-          DataCell(Text('${_productsList.precioProducto.toString()}')),
-        ]);
-      }).toList(),
-    )
+                sortColumnIndex: 0,
+                columns: <DataColumn>[
+                  DataColumn(
+                      label: IconButton(
+                    onPressed: () {
+                      // Navigator.pushNamed(context, '/productos');
+
+                      print(_productsList.length);
+                      setState(() {});
+//Limpiar toda la tabla de productos
+// Operation().clearTable();
+                    },
+                    icon: Icon(Icons.local_activity),
+                    color: Colors.black,
+                  )),
+                  DataColumn(
+                      label: Text("Nombre Producto"),
+                      tooltip: "Nombre Producto",
+                      numeric: true,
+                      onSort: (int columnIndex, bool ascending) {}),
+                  DataColumn(
+                      label: Text("Codigo"),
+                      tooltip: "Codigo",
+                      numeric: true,
+                      onSort: (int columnIndex, bool ascending) {}),
+                  DataColumn(
+                      label: Text("Valor Ud"),
+                      tooltip: "Valor Ud",
+                      numeric: true,
+                      onSort: (int columnIndex, bool ascending) {}),
+                ],
+                rows: _productsList.map((_productsList) {
+                  return DataRow(cells: [
+                    DataCell(Icon(Icons.delete), onTap: () {
+                      Operation().deleteProduct(_productsList.codigo);
+                      // setState(() {
+                        
+                      // });
+                    }),
+                    DataCell(
+                      Text('${_productsList.nombreProducto.toString()}'),
+                      showEditIcon: true,
+                      onTap: () {
+                        print(_productsList.codigo);
+                      },
+                    ),
+                    DataCell(Text('${_productsList.codigo.toString()}')),
+                    DataCell(
+                        Text('${_productsList.precioProducto.toString()}')),
+                  ]);
+                }).toList(),
+              ),
             ],
           ),
         ),

@@ -50,6 +50,7 @@ class Operation {
     return await _db.insert('productos', producto.toMap());
   }
 
+
 //Alternativa para guardar producto
 //  Future saveData(Producto producto) async {
 //     var _db = await db;
@@ -70,7 +71,7 @@ class Operation {
   // }
 
 //Alternativa 2
-  Future<List<Producto>> productos() async {
+  Future<List<Producto>>   productos() async {
     // Obtiene una referencia de la base de datos
     final Database _db = await _openDB();
 
@@ -102,17 +103,17 @@ class Operation {
   //       conflictAlgorithm: ConflictAlgorithm.fail);
   // }
 
-  // Future find(int codigo) async {
-  //   var _db = await db;
-  //   List<Map<String, dynamic>> result =
-  //       await _db.query('productos', where: 'codigo = ?', whereArgs: [codigo]);
+  Future find(int codigo) async {
+    var _db = await _openDB();
+    List<Map<String, dynamic>> result =
+        await _db.query('productos', where: 'codigo = ?', whereArgs: [codigo]);
 
-  //   return result.isNotEmpty
-  //       ? result.map((e) {
-  //           return Producto.fromDb(e);
-  //         }).toList()
-  //       : [];
-  // }
+    return result.isNotEmpty
+        ? result.map((e) {
+            return Producto.fromDb(e);
+          }).toList()
+        : [];
+  }
 
   // Future<int> update(Producto producto) async {
   //   var _db = await db;
@@ -121,11 +122,35 @@ class Operation {
   // }
 
 //Manejo base de datos vendedores
-  // Future saveDataVendedor(Vendedor vendedor) async {
-  //   var _db = await db;
-  //   return await _db.insert('vendedores', vendedor.toMap());
-  // }
+  Future<Database> _openDBVendedor() async {
+    return openDatabase(join(await getDatabasesPath(), 'Restaurante.db'),
+        onCreate: (db, version) {
+      return db.execute(
+        "CREATE TABLE vendedores (codigoVendedor INTEGER primary key autoincrement , nombreVendedor TEXT, telefonoVendedor INTEGER)",
+      );
+    }, version: 1);
+  }
 
+  Future saveDataVendedor(Vendedor producto) async {
+    var _db = await _openDBVendedor();
+    return await _db.insert('vendedores', producto.toMap());
+  }
+
+ Future<List<Vendedor>> vendedores() async {
+    // Obtiene una referencia de la base de datos
+    final Database _db = await _openDBVendedor();
+
+    // Consulta la tabla por todos los pedidos.
+    final List<Map<String, dynamic>> maps = await _db.query('productos');
+
+    // Convierte List<Map<String, dynamic> en List<Pedidos>.
+    return List.generate(maps.length, (i) {
+      return Vendedor(
+          codigoVendedor: maps[i]['codigoVendedor'],
+          nombreVendedor: maps[i]['nombreVendedor'],
+          telefonoVendedor: maps[i]['telefonoVendedor']);
+    });
+  }
   // Future _onCreateVendedor(Database db, int version) async {
   //   return await db.execute(
   //       "CREATE TABLE vendedores (codigoVendedor INTEGER primary key AUTOINCREMENT , nombreVendedor TEXT, telefonoVendedor INTEGER)");
@@ -153,4 +178,24 @@ class Operation {
   //         }).toList()
   //       : [];
   // }
+
+ Future< void > clearTable() async { 
+     Database db = await _openDB(); 
+     return await db.execute( "DELETE FROM productos" ); 
+   } 
+  
+  Future<void> deleteProduct(int codigo) async {
+  // Obtiene una referencia de la base de datos
+  final db = await _openDB();
+
+  // Elimina el Dog de la base de datos
+  await db.delete(
+    'productos',
+    // Utiliza la cláusula `where` para eliminar un dog específico
+    where: "codigo = ?",
+    // Pasa el id Dog a través de whereArg para prevenir SQL injection
+    whereArgs: [codigo],
+  );
+}
+
 }

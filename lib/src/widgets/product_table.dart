@@ -3,7 +3,7 @@ import 'package:flutterchat_app/src/db/db_provider.dart';
 import 'package:flutterchat_app/src/db/repository.dart';
 import 'package:flutterchat_app/src/model/producto.dart';
 import 'package:flutterchat_app/src/screens/products_screen.dart';
-import 'package:flutterchat_app/src/services/operation.dart';
+import 'package:flutterchat_app/src/db/operation.dart';
 
 class ProductTable extends StatefulWidget {
   // const ProductTable({Key? key}) : super(key: key);
@@ -15,14 +15,8 @@ class ProductTable extends StatefulWidget {
 
 class _TablePageState extends State<ProductTable> {
   //Operation db = DBProvider();
-final List<Producto> _productsList = [];
+ List<Producto> _productsList = [];
 
-void agregarProducto (Producto producto) {
-    Operation().saveData(producto);
-    _productsList.add(producto);
-    setState(() {      
-    });
-  }
   @override
   void initState() {
     super.initState();
@@ -30,10 +24,10 @@ void agregarProducto (Producto producto) {
   }
 
   _loadData() async {
-   var productsList = await Operation().productos();
-    setState(() {
-      productsList.addAll(_productsList);
-    });
+    var productsList = await Operation().productos();
+    print(productsList.length);
+    _productsList.addAll(productsList);
+    return _productsList;
   }
 
   
@@ -47,7 +41,9 @@ void agregarProducto (Producto producto) {
         DataColumn(
             label: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/productos');
+            //Navigator.pushNamed(context, '/productos');
+            print(_productsList.length);
+                      setState(() {});
           },
           icon: Icon(Icons.add),
           color: Colors.black,
@@ -69,13 +65,25 @@ void agregarProducto (Producto producto) {
             onSort: (int columnIndex, bool ascending) {}),
       ],
       rows: _productsList.map((_productsList) {
-        return DataRow(cells: [
-          //DataCell(Text('')),
-          DataCell(Text('${_productsList.nombreProducto.toString()}')),
-          DataCell(Text('${_productsList.codigo.toString()}')),
-          DataCell(Text('${_productsList.precioProducto.toString()}')),
-        ]);
-      }).toList(),
+                  return DataRow(cells: [
+                    DataCell(Icon(Icons.add), onTap: () {
+                      print("Agregar producto");
+                      // setState(() {
+                        
+                      // });
+                    }),
+                    DataCell(
+                      Text('${_productsList.nombreProducto.toString()}'),
+                      showEditIcon: true,
+                      onTap: () {
+                        print(_productsList.codigo);
+                      },
+                    ),
+                    DataCell(Text('${_productsList.codigo.toString()}')),
+                    DataCell(
+                        Text('${_productsList.precioProducto.toString()}')),
+                  ]);
+                }).toList(),
     );
   }
   //row data
