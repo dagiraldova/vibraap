@@ -283,90 +283,423 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       drawer: NavigationDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.grey.shade900,
       ),
       body: Center(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              SendSms(),
-              Container(
-                child: FlatButton.icon(
-                  icon: Icon(
-                    CupertinoIcons.flag,
-                    color: Colors.white,
-                  ),
-                  label: Text("Nuevo Pedido"),
-                  color: Colors.yellow,
-                  onPressed: () async {
-                    await ShowInfoDialog(context);
-                  },
-                  shape: StadiumBorder(),
-                  highlightColor: Colors.yellow,
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Container(
+            alignment: Alignment.bottomCenter,
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 430,
-                    height: 130,
-                    padding: EdgeInsets.all(10.0),
-                    margin: EdgeInsets.only(left: 50, top: 200),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Color.fromRGBO(234, 236, 239, 1.0)),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.delete_outline,
-                          size: 30.0,
-                          color: Colors.grey,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(vertical: 7.0),
-                              child: Text('N° pedido 5614987345',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17.0)),
+                Container(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          FlatButton.icon(
+                            icon: Icon(
+                              CupertinoIcons.flag,
+                              color: Colors.white,
                             ),
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 15.0),
-                              width: 110.0,
-                              height: 28.0,
-                              child: RaisedButton(
-                                elevation: 0.5,
-                                shape: StadiumBorder(),
-                                color: Colors.yellowAccent,
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/edit');
-                                },
-                                child: Text(
-                                  "Modificar",
-                                  style: TextStyle(
-                                      fontSize: 16.0, color: Colors.black),
-                                ),
+                            label: Text("Nuevo Pedido"),
+                            color: Colors.yellow,
+                            onPressed: () async {
+                              await ShowInfoDialog(context);
+                            },
+                            shape: StadiumBorder(),
+                            highlightColor: Colors.yellow,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Text("Lista de de pedidos"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: 90,
+                  child: ListView.separated(
+                    padding: EdgeInsets.all(2),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    separatorBuilder: (context, _) => SizedBox(
+                      width: 12,
+                    ),
+                    itemBuilder: (context, index) => buildCard(),
+                  ),
+                  /*Row(
+                  children: [
+                    Container(
+                      width: 430,
+                      height: 130,
+                      padding: EdgeInsets.all(10.0),
+                      margin: EdgeInsets.only(left: 50, top: 200),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromRGBO(234, 236, 239, 1.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.delete_outline,
+                            size: 30.0,
+                            color: Colors.grey,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 7.0),
+                                child: Text('N° pedido 5614987345',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.0)),
                               ),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 15.0),
+                                width: 110.0,
+                                height: 28.0,
+                                child: RaisedButton(
+                                  elevation: 0.5,
+                                  shape: StadiumBorder(),
+                                  color: Colors.yellowAccent,
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/edit');
+                                  },
+                                  child: Text(
+                                    "Modificar",
+                                    style: TextStyle(
+                                        fontSize: 16.0, color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )*/
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Divider(),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [Text("Tu información")],
+                ),
+                SizedBox(height: 20),
+                SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Container(
+                        //1
+                        padding:
+                            EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+                        width: 225,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                    "NIT               \n\n"
+                                    "Teléfono               \n\n"
+                                    "Forma De pago               \n\n"
+                                    "Oficina               \n\n"
+                                    "Canal               \n\n"
+                                    "Grupo cliente               ",
+                                    style: TextStyle(
+                                        fontSize:12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey.shade600
+                                        )
+                                            ), //falta dividers y alternativa para separar el texto
+                                Text(
+                                  "CL 56654884\n\n"
+                                  "3152013826\n\n"
+                                  "CR\n\n"
+                                  "01\n\n"
+                                  "01\n\n"
+                                  "25",
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontSize: 12, 
+                                      color: Colors.grey.shade500,
+                                      fontWeight: FontWeight.bold
+                                      ),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
+                        ),
+                      ), //1
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        //2
+                        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        width: 225,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                              children: [
+                                Row(
+                                  children:[
+                                    Text("N° de pedidos", 
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade600,
+                                      fontSize: 16
+                                    ),
+                                    )
+                                  ]
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text("50", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.yellow, fontSize: 40))
+                                  ],
+                                ),
+                                SizedBox(height:10),
+                                Divider(),
+                                SizedBox(height:10),
+                                Row(
+                                  children: [
+                                    Text("Cartera", 
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade600,
+                                      fontSize: 16
+                                    ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 15,),
+                                Row(
+                                  children: [
+                                    Text(
+                                    "Total               \n\n"
+                                    "Total vencido               \n\n",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade600
+                                    )
+                                    ),
+                                    
+                                    Text(
+                                    "\$ 700.695\n\n"
+                                    "\$ 0\n\n",
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.yellow,
+                                      
+                                    )
+                                    ) 
+                                  ],
+                                )
+                              ],
+                            ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            width: 400,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                            
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                width: 195,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: Offset(0, 1),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                width: 195,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: Offset(0, 1),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ) //2
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+        ]),
       ),
     );
   }
+
+  Widget buildCard() => Container(
+        padding: EdgeInsets.all(10),
+        width: 230,
+        height: 90,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "N° de pedido - ",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "154564654654",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.yellow,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  "Hamburguesa(x2)\nGaseosa(x2)\nMesa 5",
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.grey.shade500
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+  Widget BuildCardInfo(int height, int width) => Container(
+        padding: EdgeInsets.all(10),
+        width: 200,
+        height: 250,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
+      );
 }

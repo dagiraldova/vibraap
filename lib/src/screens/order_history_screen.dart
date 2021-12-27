@@ -88,83 +88,98 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.grey.shade900,
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('pedidos').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                AppDropDownButton(
-                  items: ['Sin entregar', 'Entregados', 'Por fechas'],
-                  view: 'Pedidos actuales',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                    alignment: Alignment.topCenter,
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    width: 1000,
-                    height: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade50,
-                      borderRadius: BorderRadius.circular(30),
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: [StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('pedidos').snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+      
+            return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    AppDropDownButton(
+                      items: ['Sin entregar', 'Entregados', 'Por fechas'],
+                      view: 'Pedidos actuales',
                     ),
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      child: DataTable(columns: const [
-                        DataColumn(label: Text("")),
-                        DataColumn(label: Text("N° de pedido")),
-                        DataColumn(label: Text("Descripción")),
-                        DataColumn(label: Text("Mesa")),
-                        DataColumn(label: Text("Valor")),
-                        DataColumn(label: Text("Estado del producto")),
-                      ], rows: [
-                        DataRow(cells: [
-                          DataCell(IconButton(
-                            color: Colors.grey.shade900,
-                            icon: Icon(Icons.remove_circle_outline),
-                            onPressed: () {},
-                          )),
-                          DataCell(Text('165564564')),
-                          DataCell(Text('Hamburguesa')),
-                          DataCell(Text('4')),
-                          DataCell(Text('10000 cop')),
-                          DataCell(AppDropDownButton(
-                            items: ['Entregado', 'Sin entregar'],
-                            view: 'Sin entregar',
-                          ))
-                        ]),
-                        DataRow(cells: [
-                          DataCell(IconButton(
-                            color: Colors.grey.shade900,
-                            icon: Icon(Icons.remove_circle_outline),
-                            onPressed: () {},
-                          )),
-                          DataCell(Text('165564564')),
-                          DataCell(Text('Hamburguesa')),
-                          DataCell(Text('4')),
-                          DataCell(Text('10000 cop')),
-                          DataCell(AppDropDownButton(
-                            items: ['Entregado', 'Sin entregar'],
-                            view: 'Sin entregar',
-                          ))
-                        ]),
-                      ]),
-                    )),
-              ],
-            ),
-          );
-        },
-      ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                        alignment: Alignment.topCenter,
+                        padding: EdgeInsets.symmetric(horizontal: 25),
+                        width: 1000,
+                        height: 350,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade50,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(0, 1),
+                      ),
+                    ]
+                        ),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [Container(
+                            alignment: Alignment.topLeft,
+                            child: DataTable(columns: const [
+                              DataColumn(label: Text("")),
+                              DataColumn(label: Text("N° de pedido")),
+                              DataColumn(label: Text("Descripción")),
+                              DataColumn(label: Text("Mesa")),
+                              DataColumn(label: Text("Valor")),
+                              DataColumn(label: Text("Estado del producto")),
+                            ], rows: [
+                              DataRow(cells: [
+                                DataCell(IconButton(
+                                  color: Colors.grey.shade900,
+                                  icon: Icon(Icons.remove_circle_outline),
+                                  onPressed: () {},
+                                )),
+                                DataCell(Text('165564564')),
+                                DataCell(Text('Hamburguesa')),
+                                DataCell(Text('4')),
+                                DataCell(Text('10000 cop')),
+                                DataCell(AppDropDownButton(
+                                  items: ['Entregado', 'Sin entregar'],
+                                  view: 'Sin entregar',
+                                ))
+                              ]),
+                              DataRow(cells: [
+                                DataCell(IconButton(
+                                  color: Colors.grey.shade900,
+                                  icon: Icon(Icons.remove_circle_outline),
+                                  onPressed: () {},
+                                )),
+                                DataCell(Text('165564564')),
+                                DataCell(Text('Hamburguesa')),
+                                DataCell(Text('4')),
+                                DataCell(Text('10000 cop')),
+                                DataCell(AppDropDownButton(
+                                  items: ['Entregado', 'Sin entregar'],
+                                  view: 'Sin entregar',
+                                ))
+                              ]),
+                            ]),
+                          ),
+                  ])),
+                  ],
+                ),
+              
+            );
+          },
+        ),
+      ]),
     );
   }
 }

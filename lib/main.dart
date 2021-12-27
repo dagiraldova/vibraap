@@ -4,6 +4,7 @@ import 'package:flutterchat_app/src/screens/login_screen.dart';
 import 'package:flutterchat_app/src/screens/order_history_screen.dart';
 import 'package:flutterchat_app/src/screens/order_screen.dart';
 import 'package:flutterchat_app/src/screens/products_screen.dart';
+import 'package:flutterchat_app/src/screens/profile_screen.dart';
 import 'package:flutterchat_app/src/screens/registration_screen.dart';
 import 'package:flutterchat_app/src/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,11 +31,11 @@ void main() async {
       routes: <String, WidgetBuilder>{
         LoginScreen.routeName: (BuildContext context) => LoginScreen(),
         WelcomeScreen.routeName: (BuildContext context) => WelcomeScreen(),
-        RegistrationScreen.RouteName: (BuildContext context) =>
-            RegistrationScreen(),
+        RegistrationScreen.RouteName: (BuildContext context) =>RegistrationScreen(),
         OrderScreen.RouteName: (BuildContext context) => OrderScreen(),
         ProductsScreen.RouteName: (BuildContext context) => ProductsScreen(),
         OrderHistoryScreen.routeName: (BuildContext context) => OrderHistoryScreen(),
-        EditPage.routeName: (BuildContext context) => EditPage()
+        EditPage.routeName: (BuildContext context) => EditPage(),
+        ProfileScreen.RouteName: (BuildContext context) => ProfileScreen()
       }));
 }

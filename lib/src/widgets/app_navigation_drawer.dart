@@ -48,7 +48,7 @@ class NavigationDrawer extends StatelessWidget {
                 icon: Icons.account_circle_outlined,
                 iconColor: Colors.orange.shade300,
                 onTap: () {
-                  Navigator.pushNamed(context, '/orderhistory');
+                  Navigator.pushNamed(context, '/profile');
                 }),
             buildMenuItem(
                 text: "Productos",
